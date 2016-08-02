@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Single User Authentication</title>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+</head>
+<body>
+    <h1>Single User Authentication</h1>
+
+    <button id="normalBtn">Normal</button>
+    <p id="normal"></p>
+
+    <button id="secretBtn">Secret</button>
+    <p id="secret"></p>
+
+    <script>
+        var serverURL = window.location.origin
+
+        console.log(serverURL)
+
+        function ajaxAndDisplay ( route, displayElem ) {
+        $.ajax({
+            type: 'GET',
+            url: serverURL + route,
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('Auth-Token', window.localStorage['auth_token'])
+            },
+            success: function (response) {
+                console.log(response.message)
+                displayElem.append(response.message)
+            },
+            error: function(){
+                displayElem.append('Cannot Access Secret Information')
+            }       
+        })
+        }
+
+        $('#normalBtn').click(function(){
+            ajaxAndDisplay('/normal', $('#normal'))
+        })
+
+        $('#secretBtn').click(function(){
+            ajaxAndDisplay('/secret', $('#secret'))
+        })
+
+    </script>
+</body>
+</html>
