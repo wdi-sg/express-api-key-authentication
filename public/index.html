@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Single User Authentication</title>
+    <title>Express API KEY Authentiation</title>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 </head>
 <body>
-    <h1>Single User Authentication</h1>
+    <h1>Express API KEY Authentiation</h1>
 
     <button id="normalBtn">Normal</button>
     <p id="normal"></p>
@@ -17,22 +17,20 @@
     <script>
         var serverURL = window.location.origin
 
-        console.log(serverURL)
-
         function ajaxAndDisplay ( route, displayElem ) {
         $.ajax({
             type: 'GET',
             url: serverURL + route,
             beforeSend: function (xhr) {
-                xhr.setRequestHeader('Auth-Token', window.localStorage['auth_token'])
+                xhr.setRequestHeader('API-Key', window.localStorage['API_KEY'])
             },
             success: function (response) {
                 console.log(response.message)
                 displayElem.append(response.message)
             },
             error: function(){
-                displayElem.append('Cannot Access Secret Information')
-            }       
+                displayElem.append('Cannot Access Secret Information. In your browser developer tools add the API-Key to your local storage and try again.')
+            }
         })
         }
 
