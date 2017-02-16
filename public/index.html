@@ -26,10 +26,10 @@
             },
             success: function (response) {
                 console.log(response.message)
-                displayElem.append(response.message)
+                displayElem.text(response.message)
             },
             error: function(){
-                displayElem.append('Cannot Access Secret Information. In your browser developer tools add the API-Key to your local storage and try again.')
+                displayElem.text('Cannot Access Secret Information. In your browser developer tools add the API-Key to your local storage and try again.')
             }
         })
         }
