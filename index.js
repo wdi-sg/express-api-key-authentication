@@ -3,8 +3,9 @@ require('dotenv').config({silent: true})
 
 const express = require('express')
 const app = express()
-const morgan = require('morgan')
+const logger = require('morgan')
 
+app.use(logger('dev'))
 // enable CORS for all routes and for our specific API-Key header
 app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Origin', '*')
@@ -13,7 +14,7 @@ app.use(function (req, res, next) {
 })
 
 // ROUTES
-// serve everything in assets folder as static etc
+// serve everything in assets folder as static, so we can get our single html page
 app.use(express.static('public'))
 
 // unprotected root route
